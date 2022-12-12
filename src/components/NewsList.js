@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewsItem from "./NewsItem";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 function NewsList() {
   const [articles, setArticles] = useState([]);
 
-  const URL =
-    "https://newsapi.org/v2/everything?q=bangladesh&apiKey=b9103fd28129468bb99c59f6ff8e005b";
+  const URL = `https://newsapi.org/v2/top-headlines?country=gb&category=sports&apiKey=${API_KEY}`;
   useEffect(() => {
     const getArticles = async () => {
       const response = await axios
@@ -14,7 +15,6 @@ function NewsList() {
         .then((res) => res)
         .then((data) => data);
       setArticles(response.data.articles);
-      console.log(response.data.articles);
     };
     getArticles();
   }, []);
